@@ -22,15 +22,20 @@ def add_to_bag(event = None):
 input_text.bind('<Return>', add_to_bag)
 
 
-def remove_from_bag():
+def remove_from_bag(event = None):
     item = input_text.get().strip()
     if item in inventory:
         inventory.remove(item)
-        text_box.delete("1.0", tkinter.END)
+        text_box.delete(1.0, tkinter.END)
         for i in inventory:
             text_box.insert(tkinter.END, i + "\n")
+    elif item == 'allt':
+        inventory.clear()
+        text_box.delete(1.0, tkinter.END)
     else: 
         print(f"{item} fanns ej i påsen")
+        input_text.delete(0, tkinter.END)
+input_text.bind('<Delete>', remove_from_bag)
 
 remove_button = tkinter.Button(main, text="Radera något från påsen", command= remove_from_bag)
 remove_button.pack(pady=10)
